@@ -76,7 +76,13 @@ img {
   left: 290px;
   bottom: 20px;
 }
+a {
+  color: #51adcf;
+}
 
+a:hover {
+  color: #0d7377;
+}
 .container {
   border: 1px solid red;
   margin: 0 auto;
