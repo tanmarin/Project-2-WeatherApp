@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SheCode Plus Weather App Project</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://kit.fontawesome.com/31b2ffb3e0.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="src/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <form id="city-form">
+        <div class="row">
+          <div class="col-6">
+            <input
+              type="text"
+              placeholder="Enter Location"
+              class="form-control"
+              autofocus="on"
+              autocomplete="off"
+              id="submitted-city"
+            />
+          </div>
+          <div class="col">
+            <button type="submit">
+              <i class="fas fa-search-location"></i>
+            </button>
+            <div class="col">
+              <button type="submit" class="geolocation" id="button-geo">
+                <i class="fas fa-location-arrow"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="location">
+        <h1></h1>
+        <div class="row date-time">
+          <div class="col-6 timing" id="dates-time">
+            Saturday, 5 September, 02:00
+          </div>
+          <div class="col-3" id="rise-sun">Sunrise | Sunset</div>
+          <div class="col-3">06:08 18:37</div>
+        </div>
+      </div>
+      <div class="weather">
+        <div class="row current-weather">
+          <div class="col-6">
+            <span class="weather-icon">
+              <i class="fas fa-cloud-sun"></i>
+            </span>
+          </div>
+          <div class="col-3">
+            <h2 id="current-temp"></h2>
+            <p class="degree">
+              <a href="#" id="temp-Celsius">°C</a> |
+              <a href="#" id="temp-Fahrenheit">°F</a>
+            </p>
+          </div>
+        </div>
+        <h3></h3>
+      </div>
+      <div class="temperature">
+        <div class="row">
+          <div class="col-6">
+            <div class="row">
+              <div class="col-12">
+                <section class="reading">
+                  <i class="fas fa-temperature-high"></i>
+                  <h4 id="high-temp"><strong>°</strong></h4>
+                  <p><small>Temperature High</small></p>
+                </section>
+              </div>
+              <div class="col-12 temp-low">
+                <section class="reading">
+                  <i class="fas fa-temperature-low"></i>
+                  <h4 id="low-temp"><strong>°</strong></h4>
+                  <p><small>Temperature Low</small></p>
+                </section>
+              </div>
+            </div>
+            <div class="col-6">
+              <img src="media/kiyooo4.gif" loop="infinite" alt="girl reading" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prediction">
+        <div class="row">
+          <div class="col-3">
+            <p>
+              <span id="wind"></span>mph <br />
+              <span class="description">Wind</span>
+            </p>
+          </div>
+          <div class="col-3">
+            <p>
+              <span id="humidity"></span>% <br />
+              <span class="description">Humidity</span>
+            </p>
+          </div>
+          <div class="col-3">
+            <p>
+              <span id="clouds"></span>% <br />
+              <span class="description">Cloudiness</span>
+            </p>
+          </div>
+          <div class="col-3">
+            <p>
+              <span id="feeling-temp"></span>° <br />
+              <span class="description">Feels Like</span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <h5>Forecast</h5>
+      <section class="five-weather">
+        <div class="row five-days">
+          <div class="col forecast-five">
+            <h6>Sunday</h6>
+            <span class="five-icon">
+              <i class="fas fa-cloud-sun"></i>
+            </span>
+            <p>32° 26°</p>
+          </div>
+          <div class="col forecast-five">
+            <h6>Monday</h6>
+            <span class="five-icon">
+              <i class="fas fa-cloud-sun"></i>
+            </span>
+            <p>32° 27°</p>
+          </div>
+          <div class="col forecast-five">
+            <h6>Tuesday</h6>
+            <span class="five-icon">
+              <i class="fas fa-cloud-showers-heavy"></i>
+            </span>
+            <p>32° 27°</p>
+          </div>
+          <div class="col forecast-five">
+            <h6>Wednesday</h6>
+            <span class="five-icon">
+              <i class="fas fa-cloud-showers-heavy"></i>
+            </span>
+            <p>31° 26°</p>
+          </div>
+          <div class="col forecast-five">
+            <h6>Thursday</h6>
+            <span class="five-icon">
+              <i class="fas fa-cloud-rain"></i>
+            </span>
+            <p>31° 26°</p>
+          </div>
+        </div>
+      </section>
+    </div>
+    <p class="open-code"><a href="">Open-Source Code </a>by Tanmarin</p>
+    <script src="src/app-script-hw5.js"></script>
+  </body>
+</html>
