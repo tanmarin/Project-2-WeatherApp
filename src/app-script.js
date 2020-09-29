@@ -45,7 +45,6 @@ let readTiming = document.querySelector("#dates-time");
 
 readTiming.innerHTML = formateDate(present);
 
-//HW 5
 function callTemp(response) {
   console.log(response);
   document.querySelector("h1").innerHTML = `${response.data.name}`;
@@ -92,8 +91,6 @@ function submitCityLocation(event) {
 let formCall = document.querySelector("#city-form");
 
 formCall.addEventListener("submit", submitCityLocation);
-
-///bonus feature
 
 function geoLocal(location) {
   navigator.geolocation.getCurrentPosition(cityView);
