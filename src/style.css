@@ -77,11 +77,14 @@ img {
   bottom: 20px;
 }
 a {
-  color: #51adcf;
+  color: #44a2c4;
 }
-
+a.degree-reading:hover {
+  text-decoration: none;
+  color: #2f46ad;
+}
 a:hover {
-  color: #0d7377;
+  color: #058671;
 }
 .container {
   border: 1px solid red;
