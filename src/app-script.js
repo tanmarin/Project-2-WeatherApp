@@ -41,9 +41,7 @@ function formateDate(date) {
   return `${day}, ${dates} ${month}, ${hour}:${mins}`;
 }
 
-let readTiming = document.querySelector("#dates-time");
-
-readTiming.innerHTML = formateDate(present);
+document.querySelector("#dates-time").innerHTML = formateDate(present);
 
 function callTemp(response) {
   console.log(response);
