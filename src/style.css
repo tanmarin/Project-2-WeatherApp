@@ -36,8 +36,7 @@ button.geolocation {
   font-size: 20px;
 }
 
-h2,
-span.weather-icon {
+h2 {
   font-size: 170px;
 }
 
@@ -46,10 +45,10 @@ h2 {
   top: 35px;
   left: 25px;
 }
-span.weather-icon {
+img.weather-icon {
   position: relative;
-  right: 20px;
-  color: #ffc31f;
+  left: 10px;
+  top: 120px;
 }
 
 h3 {
