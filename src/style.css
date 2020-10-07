@@ -54,10 +54,13 @@ span.weather-icon {
 
 h3 {
   text-align: center;
-  text-transform: capitalize;
   margin: 0 auto;
   color: #056674;
   font-family: "Yanone Kaffeesatz", sans-serif;
+}
+
+h3:first-letter {
+  text-transform: capitalize;
 }
 
 h4 {

@@ -1,5 +1,5 @@
-let present = new Date();
-function formateDate(date) {
+function formateDate(timestamp) {
+  let present = new Date(timestamp);
   let days = [
     "Sunday",
     "Monday",
@@ -24,11 +24,11 @@ function formateDate(date) {
     "Novemeber",
     "December",
   ];
-  let day = days[date.getDay()];
-  let month = months[date.getMonth()];
-  let dates = date.getDate();
-  let hour = date.getHours();
-  let mins = date.getMinutes();
+  let day = days[present.getDay()];
+  let month = months[present.getMonth()];
+  let dates = present.getDate();
+  let hour = present.getHours();
+  let mins = present.getMinutes();
 
   if (hour < 10) {
     hour = `0${hour}`;
@@ -41,10 +41,51 @@ function formateDate(date) {
   return `${day}, ${dates} ${month}, ${hour}:${mins}`;
 }
 
-document.querySelector("#dates-time").innerHTML = formateDate(present);
+function sunriseHour(timestamp) {
+  let present = new Date(timestamp);
+
+  let hour = present.getHours();
+  let mins = present.getMinutes();
+
+  if (hour < 10) {
+    hour = `0${hour}`;
+  }
+
+  if (mins < 10) {
+    mins = `0${mins}`;
+  }
+
+  return `${hour}:${mins}`;
+}
+
+function sunsetHour(timestamp) {
+  let present = new Date(timestamp);
+
+  let hour = present.getHours();
+  let mins = present.getMinutes();
+
+  if (hour < 10) {
+    hour = `0${hour}`;
+  }
+
+  if (mins < 10) {
+    mins = `0${mins}`;
+  }
+
+  return `${hour}:${mins}`;
+}
 
 function callTemp(response) {
   console.log(response);
+  document.querySelector("#dates-time").innerHTML = formateDate(
+    response.data.dt * 1000
+  );
+  document.querySelector("#sunrise").innerHTML = sunriseHour(
+    response.data.sys.sunrise * 1000
+  );
+  document.querySelector("#sunset").innerHTML = sunsetHour(
+    response.data.sys.sunset * 1000
+  );
   document.querySelector("h1").innerHTML = `${response.data.name}`;
   document.querySelector(
     "h3"
