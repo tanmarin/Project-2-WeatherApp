@@ -112,11 +112,11 @@ i.fa-temperature-low {
 
 p.degree {
   position: relative;
-  font-size: 25px;
-  font-weight: lighter;
   margin-left: 20px;
   top: -150px;
   left: 150px;
+  font-size: 25px;
+  font-weight: lighter;
 }
 .temp-low {
   top: 30px;
