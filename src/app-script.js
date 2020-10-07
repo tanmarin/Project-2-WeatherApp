@@ -24,11 +24,11 @@ function formateDate(timestamp) {
     "Novemeber",
     "December",
   ];
-  let day = days[present.getUTCDay()];
-  let month = months[present.getUTCMonth()];
-  let dates = present.getUTCDate();
-  let hour = present.getUTCHours();
-  let mins = present.getUTCMinutes();
+  let day = days[present.getDay()];
+  let month = months[present.getMonth()];
+  let dates = present.getDate();
+  let hour = present.getHours();
+  let mins = present.getMinutes();
 
   if (hour < 10) {
     hour = `0${hour}`;
@@ -44,8 +44,8 @@ function formateDate(timestamp) {
 function sunriseHour(timestamp) {
   let present = new Date(timestamp);
 
-  let hour = present.getUTCHours();
-  let mins = present.getUTCMinutes();
+  let hour = present.getHours();
+  let mins = present.getMinutes();
 
   if (hour < 10) {
     hour = `0${hour}`;
@@ -61,8 +61,8 @@ function sunriseHour(timestamp) {
 function sunsetHour(timestamp) {
   let present = new Date(timestamp);
 
-  let hour = present.getUTCHours();
-  let mins = present.getUTCMinutes();
+  let hour = present.getHours();
+  let mins = present.getMinutes();
 
   if (hour < 10) {
     hour = `0${hour}`;
@@ -78,13 +78,13 @@ function sunsetHour(timestamp) {
 function callTemp(response) {
   console.log(response);
   document.querySelector("#dates-time").innerHTML = formateDate(
-    (response.data.dt + response.data.timezone) * 1000
+    response.data.dt * 1000
   );
   document.querySelector("#sunrise").innerHTML = sunriseHour(
-    (response.data.sys.sunrise + response.data.timezone) * 1000
+    response.data.sys.sunrise * 1000
   );
   document.querySelector("#sunset").innerHTML = sunsetHour(
-    (response.data.sys.sunset + response.data.timezone) * 1000
+    response.data.sys.sunset * 1000
   );
   document.querySelector("h1").innerHTML = `${response.data.name}`;
   document.querySelector(
