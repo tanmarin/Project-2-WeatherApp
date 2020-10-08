@@ -81,10 +81,10 @@ function callTemp(response) {
     response.data.dt * 1000
   );
   document.querySelector("#sunrise").innerHTML = sunriseHour(
-    response.data.sys.sunrise * 1000
+    response.data.sys.sunrise
   );
   document.querySelector("#sunset").innerHTML = sunsetHour(
-    response.data.sys.sunset * 1000
+    response.data.sys.sunset
   );
 
   document
@@ -123,12 +123,37 @@ function callTemp(response) {
   );
 }
 
+function changeImage(response) {
+  let temperature = Math.round(response.data.main.temp);
+
+  if (temperature < 5) {
+    document.querySelector("#animate").setAttribute("src", "media/snowing.svg");
+  } else {
+    if (temperature >= 28) {
+      document
+        .querySelector("#animate")
+        .setAttribute("src", "media/sunnyday.svg");
+    } else {
+      if (temperature > 5 && temperature < 20) {
+        document
+          .querySelector("#animate")
+          .setAttribute("src", "media/reading.svg");
+      } else {
+        document
+          .querySelector("#animate")
+          .setAttribute("src", "media/sunset.svg");
+      }
+    }
+  }
+}
+
 function search(city) {
   let apiKey = "65b9beaa8544369015325811bb427882";
   let apiEndPoint = "https://api.openweathermap.org/data/2.5/weather";
   let apiUrl = `${apiEndPoint}?q=${city}&appid=${apiKey}&units=metric`;
 
   axios.get(apiUrl).then(callTemp);
+  axios.get(apiUrl).then(changeImage);
 }
 
 function submitCityLocation(event) {
