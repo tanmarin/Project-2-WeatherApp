@@ -1,3 +1,5 @@
+//current day function
+
 function formateDate(timestamp) {
   let present = new Date(timestamp);
   let days = [
@@ -123,6 +125,47 @@ function callTemp(response) {
   );
 }
 
+//default location
+
+function search(city) {
+  let apiKey = "65b9beaa8544369015325811bb427882";
+  let apiEndPoint = "https://api.openweathermap.org/data/2.5/weather";
+  let apiUrl = `${apiEndPoint}?q=${city}&appid=${apiKey}&units=metric`;
+
+  axios.get(apiUrl).then(callTemp);
+  axios.get(apiUrl).then(changeImage);
+}
+
+function submitCityLocation(event) {
+  event.preventDefault();
+  let cityInput = document.querySelector("#submitted-city").value;
+  search(cityInput);
+}
+
+let formCall = document.querySelector("#city-form");
+
+formCall.addEventListener("submit", submitCityLocation);
+
+//geolocation function
+
+function geoLocal(location) {
+  navigator.geolocation.getCurrentPosition(cityView);
+}
+
+function cityView(location) {
+  let latitude = location.coords.latitude;
+  let longitude = location.coords.longitude;
+  let apiKey = "65b9beaa8544369015325811bb427882";
+  let apiEndPoint = "https://api.openweathermap.org/data/2.5/weather";
+  let apiUrlNew = `${apiEndPoint}?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrlNew).then(callTemp);
+}
+
+let gpsButton = document.querySelector("#button-geo");
+gpsButton.addEventListener("click", geoLocal);
+
+//image changing function
+
 function changeImage(response) {
   let temperature = Math.round(response.data.main.temp);
 
@@ -146,40 +189,5 @@ function changeImage(response) {
     }
   }
 }
-
-function search(city) {
-  let apiKey = "65b9beaa8544369015325811bb427882";
-  let apiEndPoint = "https://api.openweathermap.org/data/2.5/weather";
-  let apiUrl = `${apiEndPoint}?q=${city}&appid=${apiKey}&units=metric`;
-
-  axios.get(apiUrl).then(callTemp);
-  axios.get(apiUrl).then(changeImage);
-}
-
-function submitCityLocation(event) {
-  event.preventDefault();
-  let cityInput = document.querySelector("#submitted-city").value;
-  search(cityInput);
-}
-
-let formCall = document.querySelector("#city-form");
-
-formCall.addEventListener("submit", submitCityLocation);
-
-function geoLocal(location) {
-  navigator.geolocation.getCurrentPosition(cityView);
-}
-
-function cityView(location) {
-  let latitude = location.coords.latitude;
-  let longitude = location.coords.longitude;
-  let apiKey = "65b9beaa8544369015325811bb427882";
-  let apiEndPoint = "https://api.openweathermap.org/data/2.5/weather";
-  let apiUrlNew = `${apiEndPoint}?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
-  axios.get(apiUrlNew).then(callTemp);
-}
-
-let gpsButton = document.querySelector("#button-geo");
-gpsButton.addEventListener("click", geoLocal);
 
 search("Tokyo");
