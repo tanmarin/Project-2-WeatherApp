@@ -161,7 +161,7 @@ function cityView(location) {
 let gpsButton = document.querySelector("#button-geo");
 gpsButton.addEventListener("click", geoLocal);
 
-//5 day forecast
+//5 day forecast loop
 function dispalyForecast(response) {
   console.log(response);
   let forecastHour =null;
@@ -195,6 +195,14 @@ function worldReading(event) {
   document.querySelector("#feeling-temp").innerHTML = `${degreereading}°C`;
   document.querySelector("#low-temp").innerHTML = Math.round(lowtemp);
 
+  //to remove
+  let alltemp = document.querySelectorAll(".tempforcast");
+
+  alltemp.forEach(function(temp) {
+    forecastTemp = temp.innerHTML;
+    temp.innerHTML = `Math.round(forcastTemp)°`;
+  });
+
 
   celsisTemp.classList.add("active");
   farentTemp.classList.remove("active");
@@ -211,6 +219,14 @@ function ameriReads(event) {
   document.querySelector("#high-temp").innerHTML = Math.round(maxTemp);
   document.querySelector("#feeling-temp").innerHTML = `${reading} °F`;
   document.querySelector("#low-temp").innerHTML = Math.round(minTemp);
+
+//to remove
+  let alltemp = document.querySelectorAll(".tempforcast");
+
+  alltemp.forEach(function(temp) {
+    forecastTemp = temp.innerHTML;
+    temp.innerHTML = `Math.round((forcastTemp * 9) / 5 + 32)°`;
+  });
 
   celsisTemp.classList.remove("active");
   farentTemp.classList.add("active");
@@ -231,17 +247,18 @@ farentTemp.addEventListener("click", ameriReads);
 //image changing function
 
 function changeImage(response) {
-  let temperature = Math.round(response.data.main.temp);
+  
+  celsiusTemperature =Math.round(response.data.main.temp); 
 
-  if (temperature < 5) {
+  if (celsiusTemperature < 5) {
     document.querySelector("#animate").setAttribute("src", "media/snowing.svg");
   } else {
-    if (temperature >= 28) {
+    if (celsiusTemperature >= 28) {
       document
         .querySelector("#animate")
         .setAttribute("src", "media/sunnyday.svg");
     } else {
-      if (temperature > 5 && temperature < 20) {
+      if (celsiusTemperature > 5 && celsiusTemperature < 20) {
         document
           .querySelector("#animate")
           .setAttribute("src", "media/reading.svg");
