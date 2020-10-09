@@ -74,11 +74,17 @@ img.weather-icon {
   left: 8px;
   top: 100px;
 }
-img {
+
+img.gif {
   max-width: 280px;
   position: relative;
   left: 290px;
   bottom: 20px;
+}
+
+img.forecast-icon {
+  position: relative;
+  right: 15px;
 }
 
 a {
@@ -139,11 +145,6 @@ span.description {
   font-size: 16px;
   font-weight: lighter;
   font-style: italic;
-}
-
-span.five-icon {
-  font-size: 40px;
-  color: white;
 }
 
 span.divided {

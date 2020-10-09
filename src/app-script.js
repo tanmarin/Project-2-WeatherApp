@@ -1,4 +1,19 @@
 //current day function
+function formateTime(timestamp) {
+  let present = new Date(timestamp);
+   let hour = present.getHours();
+  let mins = present.getMinutes();
+
+  if (hour < 10) {
+    hour = `0${hour}`;
+  }
+
+  if (mins < 10) {
+    mins = `0${mins}`;
+  }
+
+  return `${hour}:${mins}`;
+}
 
 function formateDate(timestamp) {
   let present = new Date(timestamp);
@@ -29,53 +44,21 @@ function formateDate(timestamp) {
   let day = days[present.getDay()];
   let month = months[present.getMonth()];
   let dates = present.getDate();
-  let hour = present.getHours();
-  let mins = present.getMinutes();
 
-  if (hour < 10) {
-    hour = `0${hour}`;
-  }
-
-  if (mins < 10) {
-    mins = `0${mins}`;
-  }
-
-  return `${day}, ${dates} ${month}, ${hour}:${mins}`;
+  return `${day}, ${dates} ${month}, ${formateTime(timestamp)}`;
 }
 
 function sunriseHour(timestamp) {
-  let present = new Date(timestamp);
 
-  let hour = present.getHours();
-  let mins = present.getMinutes();
-
-  if (hour < 10) {
-    hour = `0${hour}`;
-  }
-
-  if (mins < 10) {
-    mins = `0${mins}`;
-  }
-
-  return `${hour}:${mins}`;
+ return `${formateTime(timestamp)}`;
 }
 
 function sunsetHour(timestamp) {
-  let present = new Date(timestamp);
-
-  let hour = present.getHours();
-  let mins = present.getMinutes();
-
-  if (hour < 10) {
-    hour = `0${hour}`;
-  }
-
-  if (mins < 10) {
-    mins = `0${mins}`;
-  }
-
-  return `${hour}:${mins}`;
+ 
+  return `${formateTime(timestamp)}`;
 }
+
+//Current Weather
 
 function callTemp(response) {
   console.log(response);
@@ -84,10 +67,10 @@ function callTemp(response) {
     response.data.dt * 1000
   );
   document.querySelector("#sunrise").innerHTML = sunriseHour(
-    response.data.sys.sunrise
+    response.data.sys.sunrise* 1000
   );
   document.querySelector("#sunset").innerHTML = sunsetHour(
-    response.data.sys.sunset
+    response.data.sys.sunset* 1000
   );
 
   document
@@ -142,6 +125,7 @@ function search(city) {
   let apiFiveEndPoint = "https://api.openweathermap.org/data/2.5/forecast";
   apiUrl = `${apiFiveEndPoint}?q=${city}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(dispalyForecast);
+
 }
 
 function submitCityLocation(event) {
@@ -180,7 +164,25 @@ gpsButton.addEventListener("click", geoLocal);
 //5 day forecast
 function dispalyForecast(response) {
   console.log(response);
+  let forecastHour =null;
+  let forecastElement = document.querySelector("#forecast");
+  forecastElement.innerHTML=null;   
+  for (let index = 0; index < 6; index++) {
+    forecastHour = response.data.list[index];
+   forcastTemp =forecastHour.main.temp;
+    forecastElement.innerHTML += `
+            <div class="col-2 forecast-five">
+            <h6>${formateTime(forecastHour.dt*1000)}</h6>
+            <img class="forecast-icon" 
+            src="http://openweathermap.org/img/wn/${
+          forecastHour.weather[0].icon
+        }@2x.png"
+             />
+            <p class="tempforecast" id="forecast-temp">${Math.round(forcastTemp)}°</p>
+          </div>`;    
+  }  
 }
+
 
 //Fahrenheit & Celsius
 function worldReading(event) {
@@ -192,6 +194,7 @@ function worldReading(event) {
   document.querySelector("#high-temp").innerHTML = Math.round(hightemp);
   document.querySelector("#feeling-temp").innerHTML = `${degreereading}°C`;
   document.querySelector("#low-temp").innerHTML = Math.round(lowtemp);
+
 
   celsisTemp.classList.add("active");
   farentTemp.classList.remove("active");
@@ -208,6 +211,7 @@ function ameriReads(event) {
   document.querySelector("#high-temp").innerHTML = Math.round(maxTemp);
   document.querySelector("#feeling-temp").innerHTML = `${reading} °F`;
   document.querySelector("#low-temp").innerHTML = Math.round(minTemp);
+
   celsisTemp.classList.remove("active");
   farentTemp.classList.add("active");
 }
@@ -216,6 +220,7 @@ let celsiusTemperature = null;
 let hightemp = null;
 let lowtemp = null;
 let feelTemp = null;
+let forcastTemp = null
 
 let celsisTemp = document.querySelector("#temp-Celsius");
 celsisTemp.addEventListener("click", worldReading);
