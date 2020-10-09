@@ -194,13 +194,11 @@ function worldReading(event) {
   document.querySelector("#high-temp").innerHTML = Math.round(hightemp);
   document.querySelector("#feeling-temp").innerHTML = `${degreereading}°C`;
   document.querySelector("#low-temp").innerHTML = Math.round(lowtemp);
-
-  //to remove
-  let alltemp = document.querySelectorAll(".tempforcast");
-
-  alltemp.forEach(function(temp) {
-    forecastTemp = temp.innerHTML;
-    temp.innerHTML = `Math.round(forcastTemp)°`;
+  
+  let forecastItems = document.querySelectorAll(".forecast-class");
+  forecastItems.forEach(function(item) {
+  let currentTemp = item.innerHTML;
+  currentTemp =`${Math.round(forcastTemp)}°`;
   });
 
 
@@ -214,18 +212,19 @@ function ameriReads(event) {
   let maxTemp = (hightemp * 9) / 5 + 32;
   let minTemp = (lowtemp * 9) / 5 + 32;
   let feelLikeTemp = (feelTemp * 9) / 5 + 32;
+  
   let reading = Math.round(feelLikeTemp);
   document.querySelector("#current-temp").innerHTML = Math.round(farenheitTemp);
   document.querySelector("#high-temp").innerHTML = Math.round(maxTemp);
   document.querySelector("#feeling-temp").innerHTML = `${reading} °F`;
   document.querySelector("#low-temp").innerHTML = Math.round(minTemp);
 
-//to remove
-  let alltemp = document.querySelectorAll(".tempforcast");
 
-  alltemp.forEach(function(temp) {
-    forecastTemp = temp.innerHTML;
-    temp.innerHTML = `Math.round((forcastTemp * 9) / 5 + 32)°`;
+  let forecastItems = document.querySelectorAll(".forecast-class");
+  forecastItems.forEach(function(item) {
+  let currentTemp = item.innerHTML;
+  currentTemp =`${Math.round(forcastTemp)}°`;
+  item.innerHTML = `${Math.round((currentTemp * 9) / 5 + 32)}°`;
   });
 
   celsisTemp.classList.remove("active");
