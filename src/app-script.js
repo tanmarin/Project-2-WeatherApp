@@ -79,6 +79,7 @@ function sunsetHour(timestamp) {
 
 function callTemp(response) {
   console.log(response);
+
   document.querySelector("#dates-time").innerHTML = formateDate(
     response.data.dt * 1000
   );
@@ -102,14 +103,18 @@ function callTemp(response) {
   document.querySelector(
     "h3"
   ).innerHTML = `${response.data.weather[0].description}`;
-  document.querySelector("#high-temp").innerHTML = Math.round(
-    response.data.main.temp_max
-  );
-  document.querySelector("#low-temp").innerHTML = Math.round(
-    response.data.main.temp_min
-  );
+  hightemp = response.data.main.temp_max;
+
+  lowtemp = response.data.main.temp_min;
+
+  document.querySelector("#high-temp").innerHTML = Math.round(hightemp);
+
+  document.querySelector("#low-temp").innerHTML = Math.round(lowtemp);
+
+  celsiusTemperature = response.data.main.temp;
+
   document.querySelector("#current-temp").innerHTML = Math.round(
-    response.data.main.temp
+    celsiusTemperature
   );
   document.querySelector("#wind").innerHTML = Math.round(
     response.data.wind.speed
@@ -117,9 +122,9 @@ function callTemp(response) {
   document.querySelector("#humidity").innerHTML = Math.round(
     response.data.main.humidity
   );
-  document.querySelector("#feeling-temp").innerHTML = Math.round(
-    response.data.main.feels_like
-  );
+
+  feelTemp = response.data.main.feels_like;
+  document.querySelector("#feeling-temp").innerHTML = Math.round(feelTemp);
   document.querySelector("#clouds").innerHTML = Math.round(
     response.data.clouds.all
   );
@@ -163,6 +168,49 @@ function cityView(location) {
 
 let gpsButton = document.querySelector("#button-geo");
 gpsButton.addEventListener("click", geoLocal);
+
+//5 day forecast
+
+//Fahrenheit & Celsius
+function worldReading(event) {
+  event.preventDefault();
+  let degreereading = Math.round(feelTemp);
+  document.querySelector("#current-temp").innerHTML = Math.round(
+    celsiusTemperature
+  );
+  document.querySelector("#high-temp").innerHTML = Math.round(hightemp);
+  document.querySelector("#feeling-temp").innerHTML = `${degreereading}°C`;
+  document.querySelector("#low-temp").innerHTML = Math.round(lowtemp);
+
+  celsisTemp.classList.add("active");
+  farentTemp.classList.remove("active");
+}
+
+function ameriReads(event) {
+  event.preventDefault();
+  let farenheitTemp = (celsiusTemperature * 9) / 5 + 32;
+  let maxTemp = (hightemp * 9) / 5 + 32;
+  let minTemp = (lowtemp * 9) / 5 + 32;
+  let feelLikeTemp = (feelTemp * 9) / 5 + 32;
+  let reading = Math.round(feelLikeTemp);
+  document.querySelector("#current-temp").innerHTML = Math.round(farenheitTemp);
+  document.querySelector("#high-temp").innerHTML = Math.round(maxTemp);
+  document.querySelector("#feeling-temp").innerHTML = `${reading} °F`;
+  document.querySelector("#low-temp").innerHTML = Math.round(minTemp);
+  celsisTemp.classList.remove("active");
+  farentTemp.classList.add("active");
+}
+
+let celsiusTemperature = null;
+let hightemp = null;
+let lowtemp = null;
+let feelTemp = null;
+
+let celsisTemp = document.querySelector("#temp-Celsius");
+celsisTemp.addEventListener("click", worldReading);
+
+let farentTemp = document.querySelector("#temp-Fahrenheit");
+farentTemp.addEventListener("click", ameriReads);
 
 //image changing function
 

@@ -72,7 +72,10 @@
           <div class="col-3">
             <h2 id="current-temp"></h2>
             <p class="degree">
-              <a href="#" id="temp-Celsius" class="degree-reading">°C</a> |
+              <a href="#" id="temp-Celsius" class="active degree-reading"
+                >°C
+              </a>
+              |
               <a href="#" id="temp-Fahrenheit" class="degree-reading">°F</a>
             </p>
           </div>
@@ -86,23 +89,23 @@
               <div class="col-12">
                 <section class="reading">
                   <i class="fas fa-temperature-high"></i>
-                  <h4 id="high-temp"><strong>°</strong></h4>
+                  <h4 id="high-temp" class="temphigh"><strong>°</strong></h4>
                   <p><small>Temperature High</small></p>
                 </section>
               </div>
               <div class="col-12 temp-low">
                 <section class="reading">
                   <i class="fas fa-temperature-low"></i>
-                  <h4 id="low-temp"><strong>°</strong></h4>
+                  <h4 id="low-temp" class="templow"><strong>°</strong></h4>
                   <p><small>Temperature Low</small></p>
                 </section>
               </div>
             </div>
             <div class="col-6">
               <img
-                src="media/kiyooo4.gif"
+                src=""
                 loop="infinite"
-                alt="girl reading"
+                alt=""
                 class="gif float-left"
                 id="animate"
               />
@@ -133,7 +136,7 @@
           </div>
           <div class="col-3">
             <p>
-              <span id="feeling-temp"></span>° <br />
+              <span id="feeling-temp"></span> <br />
               <span class="description">Feels Like</span>
             </p>
           </div>
@@ -143,39 +146,44 @@
       <section class="five-weather">
         <div class="row five-days">
           <div class="col forecast-five">
-            <h6>Sunday</h6>
+            <h6 id="dayone">Sunday</h6>
+            <img id="five-icon-one" class="forecast-icon" src="" alt="" />
             <span class="five-icon">
               <i class="fas fa-cloud-sun"></i>
             </span>
-            <p id="dayOneTemp">32°</p>
+            <p id="day-one-temp" class="tempforecast">32°</p>
           </div>
           <div class="col forecast-five">
-            <h6>Monday</h6>
+            <h6 id="daytwo">Monday</h6>
+            <img id="five-icon-two" class="forecast-icon" src="" alt="" />
             <span class="five-icon">
               <i class="fas fa-cloud-sun"></i>
             </span>
-            <p id="dayTwoTemp">27°</p>
+            <p id="day-two-temp" class="tempforecast">27°</p>
           </div>
           <div class="col forecast-five">
-            <h6>Tuesday</h6>
+            <h6 id="daythree">Tuesday</h6>
+            <img id="five-icon-three" class="forecast-icon" src="" alt="" />
             <span class="five-icon">
               <i class="fas fa-cloud-showers-heavy"></i>
             </span>
-            <p id="dayThreeTemp">32°</p>
+            <p id="day-three-temp" class="tempforecast">32°</p>
           </div>
           <div class="col forecast-five">
-            <h6>Wednesday</h6>
+            <h6 id="dayfour">Wednesday</h6>
+            <img id="five-icon-four" class="forecast-icon" src="" alt="" />
             <span class="five-icon">
               <i class="fas fa-cloud-showers-heavy"></i>
             </span>
-            <p id="dayFourTemp">26°</p>
+            <p id="day-four-temp" class="tempforecast">26°</p>
           </div>
           <div class="col forecast-five">
-            <h6>Thursday</h6>
+            <h6 id="dayfive">Thursday</h6>
+            <img id="five-icon-five" class="forecast-icon" src="" alt="" />
             <span class="five-icon">
               <i class="fas fa-cloud-rain"></i>
             </span>
-            <p id="dayFiveTemp">31°</p>
+            <p id="day-five-temp" class="tempforecast">31°</p>
           </div>
         </div>
       </section>
