@@ -130,21 +130,25 @@ function callTemp(response) {
   );
 }
 
-//default location
+//search location
 
 function search(city) {
   let apiKey = "65b9beaa8544369015325811bb427882";
   let apiEndPoint = "https://api.openweathermap.org/data/2.5/weather";
   let apiUrl = `${apiEndPoint}?q=${city}&appid=${apiKey}&units=metric`;
-
   axios.get(apiUrl).then(callTemp);
   axios.get(apiUrl).then(changeImage);
+
+  let apiFiveEndPoint = "https://api.openweathermap.org/data/2.5/forecast";
+  apiUrl = `${apiFiveEndPoint}?q=${city}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(dispalyForecast);
 }
 
 function submitCityLocation(event) {
   event.preventDefault();
   let cityInput = document.querySelector("#submitted-city").value;
   search(cityInput);
+  
 }
 
 let formCall = document.querySelector("#city-form");
@@ -164,12 +168,19 @@ function cityView(location) {
   let apiEndPoint = "https://api.openweathermap.org/data/2.5/weather";
   let apiUrlNew = `${apiEndPoint}?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
   axios.get(apiUrlNew).then(callTemp);
+
+  let apiFiveEndPoint = "https://api.openweathermap.org/data/2.5/forecast";
+  let apiUrl = `${apiFiveEndPoint}?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(dispalyForecast);
 }
 
 let gpsButton = document.querySelector("#button-geo");
 gpsButton.addEventListener("click", geoLocal);
 
 //5 day forecast
+function dispalyForecast(response) {
+  console.log(response);
+}
 
 //Fahrenheit & Celsius
 function worldReading(event) {
