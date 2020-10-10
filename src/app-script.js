@@ -178,7 +178,10 @@ function dispalyForecast(response) {
           forecastHour.weather[0].icon
         }@2x.png"
              />
-            <p class="tempforecast" id="forecast-temp">${Math.round(forcastTemp)}°</p>
+            <p class="tempforecast" id="forecast-temp">
+            <span class="forecast-temperature">
+            ${Math.round(forcastTemp)}
+            </span>°</p>
           </div>`;    
   }  
 }
@@ -195,15 +198,18 @@ function worldReading(event) {
   document.querySelector("#feeling-temp").innerHTML = `${degreereading}°C`;
   document.querySelector("#low-temp").innerHTML = Math.round(lowtemp);
   
-  let forecastItems = document.querySelectorAll(".forecast-class");
+  let forecastItems = document.querySelectorAll(".forecast-temperature");
   forecastItems.forEach(function(item) {
   let currentTemp = item.innerHTML;
-  currentTemp =`${Math.round(forcastTemp)}°`;
+  item.innerHTML =`${Math.round(((currentTemp - 32) * 5) / 9)}`;
   });
-
 
   celsisTemp.classList.add("active");
   farentTemp.classList.remove("active");
+
+//Handle events to avoid temperature duplications
+  celsisTemp.removeEventListener("click", worldReading);
+  farentTemp.addEventListener("click", ameriReads);
 }
 
 function ameriReads(event) {
@@ -220,15 +226,17 @@ function ameriReads(event) {
   document.querySelector("#low-temp").innerHTML = Math.round(minTemp);
 
 
-  let forecastItems = document.querySelectorAll(".forecast-class");
+  let forecastItems = document.querySelectorAll(".forecast-temperature");
   forecastItems.forEach(function(item) {
   let currentTemp = item.innerHTML;
-  currentTemp =`${Math.round(forcastTemp)}°`;
-  item.innerHTML = `${Math.round((currentTemp * 9) / 5 + 32)}°`;
+  item.innerHTML = `${Math.round((currentTemp * 9) / 5 + 32)}`;
   });
 
   celsisTemp.classList.remove("active");
   farentTemp.classList.add("active");
+
+  celsisTemp.addEventListener("click", worldReading);
+  farentTemp.removeEventListener("click", ameriReads);
 }
 
 let celsiusTemperature = null;
