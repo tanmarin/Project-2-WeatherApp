@@ -35,8 +35,8 @@ button.geolocation {
 
 h2 {
   position: relative;
-  top: 35px;
-  left: 15px;
+  top: 32px;
+  left: 26px;
   font-size: 140px;
 }
 
@@ -125,8 +125,8 @@ i.fa-temperature-high {
 p.degree {
   position: relative;
   margin-left: 20px;
-  top: -120px;
-  left: 128px;
+  top: -128px;
+  left: 125px;
   font-size: 22px;
   font-weight: lighter;
 }
