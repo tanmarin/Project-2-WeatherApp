@@ -36,7 +36,7 @@ button.geolocation {
 h2 {
   position: relative;
   top: 35px;
-  left: 25px;
+  left: 15px;
   font-size: 140px;
 }
 
@@ -126,8 +126,8 @@ p.degree {
   position: relative;
   margin-left: 20px;
   top: -120px;
-  left: 115px;
-  font-size: 20px;
+  left: 128px;
+  font-size: 22px;
   font-weight: lighter;
 }
 

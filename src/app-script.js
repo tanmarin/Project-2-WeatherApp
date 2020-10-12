@@ -1,7 +1,7 @@
 //current day function
 function formateTime(timestamp) {
   let present = new Date(timestamp);
-   let hour = present.getHours();
+  let hour = present.getHours();
   let mins = present.getMinutes();
 
   if (hour < 10) {
@@ -14,6 +14,7 @@ function formateTime(timestamp) {
 
   return `${hour}:${mins}`;
 }
+
 
 function formateDate(timestamp) {
   let present = new Date(timestamp);
@@ -49,8 +50,8 @@ function formateDate(timestamp) {
 }
 
 function sunriseHour(timestamp) {
-
- return `${formateTime(timestamp)}`;
+ 
+  return `${formateTime(timestamp)}`;
 }
 
 function sunsetHour(timestamp) {
@@ -58,12 +59,9 @@ function sunsetHour(timestamp) {
   return `${formateTime(timestamp)}`;
 }
 
-//Current Weather
-
-function callTemp(response) {
-  console.log(response);
-
-  document.querySelector("#dates-time").innerHTML = formateDate(
+//Timezone
+function displayTimezone(response) {
+   document.querySelector("#dates-time").innerHTML = formateDate(
     response.data.dt * 1000
   );
   document.querySelector("#sunrise").innerHTML = sunriseHour(
@@ -72,7 +70,11 @@ function callTemp(response) {
   document.querySelector("#sunset").innerHTML = sunsetHour(
     response.data.sys.sunset* 1000
   );
+}
 
+//Current Weather
+
+function callTemp(response) {
   document
     .querySelector("#weather-icon")
     .setAttribute(
@@ -86,15 +88,15 @@ function callTemp(response) {
   document.querySelector(
     "h3"
   ).innerHTML = `${response.data.weather[0].description}`;
-  hightemp = response.data.main.temp_max;
 
+  hightemp = response.data.main.temp_max;
+  feelTemp = response.data.main.feels_like;
   lowtemp = response.data.main.temp_min;
+  celsiusTemperature = response.data.main.temp;
 
   document.querySelector("#high-temp").innerHTML = Math.round(hightemp);
 
   document.querySelector("#low-temp").innerHTML = Math.round(lowtemp);
-
-  celsiusTemperature = response.data.main.temp;
 
   document.querySelector("#current-temp").innerHTML = Math.round(
     celsiusTemperature
@@ -106,7 +108,6 @@ function callTemp(response) {
     response.data.main.humidity
   );
 
-  feelTemp = response.data.main.feels_like;
   document.querySelector("#feeling-temp").innerHTML = Math.round(feelTemp);
   document.querySelector("#clouds").innerHTML = Math.round(
     response.data.clouds.all
@@ -120,6 +121,7 @@ function search(city) {
   let apiEndPoint = "https://api.openweathermap.org/data/2.5/weather";
   let apiUrl = `${apiEndPoint}?q=${city}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(callTemp);
+  axios.get(apiUrl).then(displayTimezone);
   axios.get(apiUrl).then(changeImage);
 
   let apiFiveEndPoint = "https://api.openweathermap.org/data/2.5/forecast";
@@ -150,11 +152,12 @@ function cityView(location) {
   let longitude = location.coords.longitude;
   let apiKey = "65b9beaa8544369015325811bb427882";
   let apiEndPoint = "https://api.openweathermap.org/data/2.5/weather";
-  let apiUrlNew = `${apiEndPoint}?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
-  axios.get(apiUrlNew).then(callTemp);
+  let apiUrl = `${apiEndPoint}?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(callTemp);
+  axios.get(apiUrl).then(displayTimezone);
 
   let apiFiveEndPoint = "https://api.openweathermap.org/data/2.5/forecast";
-  let apiUrl = `${apiFiveEndPoint}?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
+  apiUrl = `${apiFiveEndPoint}?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(dispalyForecast);
 }
 
@@ -163,7 +166,6 @@ gpsButton.addEventListener("click", geoLocal);
 
 //5 day forecast loop
 function dispalyForecast(response) {
-  console.log(response);
   let forecastHour =null;
   let forecastElement = document.querySelector("#forecast");
   forecastElement.innerHTML=null;   
@@ -177,6 +179,7 @@ function dispalyForecast(response) {
             src="http://openweathermap.org/img/wn/${
           forecastHour.weather[0].icon
         }@2x.png"
+            alt=${forecastHour.weather[0].description};
              />
             <p class="tempforecast" id="forecast-temp">
             <span class="forecast-temperature">
@@ -204,12 +207,16 @@ function worldReading(event) {
   item.innerHTML =`${Math.round(((currentTemp - 32) * 5) / 9)}`;
   });
 
+//set a default look to the active unit link
   celsisTemp.classList.add("active");
   farentTemp.classList.remove("active");
 
 //Handle events to avoid temperature duplications
-  celsisTemp.removeEventListener("click", worldReading);
   farentTemp.addEventListener("click", ameriReads);
+
+//prevents the link from being clicked
+  celsisTemp.removeEventListener("click", worldReading);
+  
 }
 
 function ameriReads(event) {
@@ -243,7 +250,8 @@ let celsiusTemperature = null;
 let hightemp = null;
 let lowtemp = null;
 let feelTemp = null;
-let forcastTemp = null
+let forcastTemp = null;
+
 
 let celsisTemp = document.querySelector("#temp-Celsius");
 celsisTemp.addEventListener("click", worldReading);
@@ -257,7 +265,7 @@ function changeImage(response) {
   
   celsiusTemperature =Math.round(response.data.main.temp); 
 
-  if (celsiusTemperature < 5) {
+  if (celsiusTemperature <= 5) {
     document.querySelector("#animate").setAttribute("src", "media/snowing.svg");
   } else {
     if (celsiusTemperature >= 28) {
